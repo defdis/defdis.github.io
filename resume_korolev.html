@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Резюме - Королёв Павел Олегович</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-dark: #0a2f1d;
+            --primary: #1b5e3e;
+            --primary-light: #2e8b57;
+            --accent: #4caf50;
+            --accent-light: #80e27e;
+            --text-light: #e8f5e9;
+            --text-muted: #a5d6a7;
+            --bg-dark: #121212;
+            --bg-card: #1e1e1e;
+            --border-color: #2d4a3a;
+            --shadow: 0 4px 12px rgba(0, 20, 10, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.7;
+            color: var(--text-light);
+            background-color: var(--bg-dark);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .resume-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 30px;
+        }
+        
+        /* HEADER STYLES */
+        .header {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(76, 175, 80, 0.1) 0%, transparent 70%);
+            z-index: 0;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: white;
+            font-weight: 700;
+        }
+        
+        .title {
+            font-size: 1.5rem;
+            color: var(--accent-light);
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            line-height: 1.6;
+        }
+        
+        /* CONTACTS CARD */
+        .contacts-card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            grid-column: 1 / -1;
+            margin-bottom: 20px;
+        }
+        
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .contact-icon {
+            background-color: rgba(76, 175, 80, 0.2);
+            color: var(--accent);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        
+        .contact-text {
+            font-size: 0.95rem;
+        }
+        
+        /* CARD STYLES */
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 20, 10, 0.4);
+        }
+        
+        h2 {
+            color: var(--accent-light);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        h2 i {
+            color: var(--accent);
+        }
+        
+        /* SKILLS GRID */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .skill-category {
+            margin-bottom: 20px;
+        }
+        
+        .skill-category h3 {
+            color: var(--primary-light);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tag {
+            background-color: rgba(46, 139, 87, 0.2);
+            color: var(--text-light);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(46, 139, 87, 0.3);
+        }
+        
+        .tag.highlight {
+            background-color: rgba(76, 175, 80, 0.3);
+            border-color: var(--accent);
+            font-weight: 500;
+        }
+        
+        /* PROJECTS */
+        .project-item {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .project-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        .project-title {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+        
+        .project-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            background-color: rgba(27, 94, 62, 0.3);
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+        
+        .project-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 12px 0;
+        }
+        
+        .stack-tag {
+            background-color: rgba(128, 226, 126, 0.1);
+            color: var(--accent-light);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .project-description {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .project-details {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            line-height: 1.6;
+            padding-left: 15px;
+        }
+        
+        .project-details li {
+            margin-bottom: 5px;
+        }
+        
+        .project-result {
+            color: var(--text-light);
+            background-color: rgba(10, 47, 29, 0.5);
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+        
+        /* TIMELINE */
+        .timeline-item {
+            margin-bottom: 25px;
+            padding-left: 20px;
+            border-left: 3px solid var(--primary);
+            position: relative;
+        }
+        
+        .timeline-item:before {
+            content: "";
+            position: absolute;
+            left: -8px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: var(--accent);
+        }
+        
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .timeline-title {
+            font-weight: 600;
+            color: var(--text-light);
+        }
+        
+        .timeline-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .timeline-subtitle {
+            color: var(--primary-light);
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-description {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        
+        /* UTILITIES */
+        .grid-span-2 {
+            grid-column: 1 / -1;
+        }
+        
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+        
+        .mt-20 {
+            margin-top: 20px;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .resume-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .title {
+                font-size: 1.3rem;
+            }
+            
+            .contacts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                color: #333;
+            }
+            
+            .card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            .header {
+                background: #1b5e3e;
+                color: white;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-container">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="header-content">
+                <h1>Королёв Павел Олегович</h1>
+                <div class="title">Full stack / IoT разработчик (Python, Django, FastAPI, Vue.js/Nuxt, Embedded)</div>
+                <p class="subtitle">Разработчик полного цикла: от backend-API и frontend до embedded-систем и компьютерного зрения. Создаю сложные решения под ключ — от идеи до работающего продукта.</p>
+            </div>
+        </header>
+        
+        <!-- CONTACTS -->
+        <div class="contacts-card">
+            <div class="contacts-grid">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <strong>Локация:</strong> Томск (Готов к удаленной работе)
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- LEFT COLUMN -->
+        <div class="left-column">
+            <!-- SKILLS -->
+            <div class="card mb-20">
+                <h2><i class="fas fa-code"></i> Ключевые технологии</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3><i class="fas fa-server"></i> Backend & API</h3>
+                        <div class="skill-tags">
+                            <span class="tag highlight">Python</span>
+                            <span class="tag highlight">Django / DRF</span>
+                            <span class="tag">FastAPI</span>
+                            <span class="tag">REST API</span>
+                            <span class="tag">Celery</span>
+                            <span class="tag">PostgreSQL</span>
+                            <span class="tag">MySQL</span>
+                            <span class="tag">Интеграция с 1C</span>
+                            <span class="tag">Telegram Bot API</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3><i class="fas fa-desktop"></i> Frontend</h3>
+                        <div class="skill-tags">
+                            <span class="tag highlight">JavaScript (ES6+)</span>
+                            <span class="tag highlight">Vue.js 2/3</span>
+                            <span class="tag highlight">Nuxt.js</span>
+                            <span class="tag">Vuex / Pinia</span>
+                            <span class="tag">Vue Router</span>
+                            <span class="tag">PrimeVue</span>
+                            <span class="tag">HTML5 / CSS3</span>
+                            <span class="tag">Vite</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3><i class="fas fa-brain"></i> Data Science / CV</h3>
+                        <div class="skill-tags">
+                            <span class="tag highlight">OpenCV</span>
+                            <span class="tag">PyTorch</span>
+                            <span class="tag">YOLO</span>
+                            <span class="tag">EasyOCR</span>
+                            <span class="tag">Обработка изображений</span>
+                            <span class="tag">Обучение моделей</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3><i class="fas fa-microchip"></i> Embedded & IoT</h3>
+                        <div class="skill-tags">
+                            <span class="tag highlight">Raspberry Pi</span>
+                            <span class="tag highlight">JetHub</span>
+                            <span class="tag">ESP8266 / ESP32</span>
+                            <span class="tag">Работа с периферией</span>
+                            <span class="tag">Разработка прошивок</span>
+                            <span class="tag">MQTT / HTTP</span>
+                            <span class="tag">Home Assistant</span>
+                            <span class="tag">HomeKit</span>
+                            <span class="tag">Пайка / сборка</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3><i class="fas fa-cloud"></i> DevOps & Инфраструктура</h3>
+                        <div class="skill-tags">
+                            <span class="tag">Linux (администрирование)</span>
+                            <span class="tag">Nginx</span>
+                            <span class="tag">Docker</span>
+                            <span class="tag">Git</span>
+                            <span class="tag">Gunicorn / uWSGI</span>
+                            <span class="tag">Развертывание VPS/VDS</span>
+                            <span class="tag">Безопасность</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- EXPERIENCE -->
+            <div class="card">
+                <h2><i class="fas fa-briefcase"></i> Опыт работы</h2>
+                
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div class="timeline-title">Full stack разработчик</div>
+                        <div class="timeline-date">2018 — настоящее время</div>
+                    </div>
+                    <div class="timeline-subtitle">Самостоятельные проекты / Фриланс</div>
+                    <p class="timeline-description">Разработка и реализация коммерческих проектов под заказ (см. ниже).</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div class="timeline-title">Технический руководитель / Архитектор</div>
+                        <div class="timeline-date">2018 — 2022</div>
+                    </div>
+                    <div class="timeline-subtitle">Инфраструктурный проект (высоконагруженный вычислительный кластер)</div>
+                    <p class="timeline-description">Полный цикл создания high-tech вычислительной инфраструктуры: привлечение инвестиций, проектирование, закупка оборудования, управление подрядчиками, эксплуатация и техническое обслуживание (1956 GPU). Разработка с нуля системы мониторинга всего оборудования в реальном времени.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div class="timeline-title">Full stack разработчик</div>
+                        <div class="timeline-date">2015 — 2017</div>
+                    </div>
+                    <div class="timeline-subtitle">Образовательная платформа «Questinar»</div>
+                    <p class="timeline-description">Разработчик в команде из 2х человек. Создание с нуля образовательной платформы (аналог современных образовательных платформ) на Django.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div class="timeline-title">Менеджер проекта / Технический координатор</div>
+                        <div class="timeline-date">2013 — 2015</div>
+                    </div>
+                    <div class="timeline-subtitle">ООО «Картаинфо»</div>
+                    <p class="timeline-description">Управление разработкой геосервиса через внешнюю команду: постановка задач, приемка, коммуникация.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- RIGHT COLUMN -->
+        <div class="right-column">
+            <!-- PROJECTS -->
+            <div class="card mb-20">
+                <h2><i class="fas fa-project-diagram"></i> Ключевые проекты</h2>
+                
+                <div class="project-item">
+                    <div class="project-header">
+                        <div class="project-title">Сайт для сети пекарен</div>
+                        <div class="project-date">Июнь 2021 — н.в.</div>
+                    </div>
+                    <div class="project-stack">
+                        <span class="stack-tag">Django (DRF API)</span>
+                        <span class="stack-tag">Nuxt.js</span>
+                        <span class="stack-tag">PrimeVue</span>
+                        <span class="stack-tag">PostgreSQL</span>
+                    </div>
+                    <p class="project-description"><strong>Full-stack разработка основного цифрового канала продаж</strong> для сети. Сайт включает каталог товаров, функциональность формирования заказа с выбором параметров (вес, начинка и т.д.), расчёт стоимости, интеграцию с Telegram для мгновенного уведомления менеджеров.</p>
+                    <div class="project-result">
+                        <strong>Результат:</strong> Разработал и поддерживаю полноценную <strong>продающую и операционную платформу</strong>. Система напрямую влияет на выручку, за время работы через неё оформлено <strong>10 000+ заказов</strong>. Реализована административная панель для управления ассортиментом, ценами и контентом.
+                    </div>
+                </div>
+                
+                <div class="project-item">
+                    <div class="project-header">
+                        <div class="project-title">«Умный холодильник» (IoT-вендинг)</div>
+                        <div class="project-date">2020 — 2023</div>
+                    </div>
+                    <div class="project-stack">
+                        <span class="stack-tag">Django (основной API)</span>
+                        <span class="stack-tag">FastAPI (микросервис на устройстве)</span>
+                        <span class="stack-tag">Vue.js (магазин)</span>
+                        <span class="stack-tag">Vue Native (приложение)</span>
+                        <span class="stack-tag">Raspberry Pi</span>
+                        <span class="stack-tag">ESP8266</span>
+                        <span class="stack-tag">MQTT</span>
+                    </div>
+                    <p class="project-description"><strong>Программно-аппаратный комплекс</strong> для превращения обычного холодильника в умный торговый автомат с контролем веса, видеофиксацией и полным циклом онлайн-покупки.</p>
+                    <ul class="project-details">
+                        <li><strong>Полный цикл разработки:</strong> от подбора компонентов, пайки и сборки (10 устройств) до написания всего ПО — прошивок для ESP8266, микросервиса на <strong>FastAPI</strong> для Raspberry Pi, облачного API на <strong>Django</strong> и клиентских интерфейсов (<strong>Vue.js</strong> для магазина, <strong>Vue Native</strong> для мобильного приложения).</li>
+                        <li>Разработал систему прецизионного взвешивания, контроля доступа, записи «видео-чека» и онлайн-оплаты.</li>
+                    </ul>
+                    <div class="project-result">
+                        <strong>Результат:</strong> За год эксплуатации <strong>не зафиксировано ни одной кражи</strong>, что подтвердило надежность системы и позволило сократить операционные расходы.
+                    </div>
+                </div>
+                
+                <div class="project-item">
+                    <div class="project-header">
+                        <div class="project-title">Система автоматизации документооборота</div>
+                        <div class="project-date">Май 2025 — н.в.</div>
+                    </div>
+                    <div class="project-stack">
+                        <span class="stack-tag">Django (DRF)</span>
+                        <span class="stack-tag">Vue.js</span>
+                        <span class="stack-tag">Интеграция с 1C (API)</span>
+                    </div>
+                    <p class="project-description"><strong>Внутренняя B2B-система</strong> для автоматической генерации договоров и актов на основе шаблонов с переменными.</p>
+                    <div class="project-result">
+                        <strong>Результат:</strong> С мая 2025 система сгенерировала <strong>более 11 500 документов</strong>, исключив ручной ввод и сократив время обработки заказов. Интеграция с 1С обеспечила актуальность данных.
+                    </div>
+                </div>
+                
+                <div class="project-item">
+                    <div class="project-header">
+                        <div class="project-title">«Умный шлагбаум» (Computer Vision)</div>
+                    </div>
+                    <div class="project-stack">
+                        <span class="stack-tag">Django</span>
+                        <span class="stack-tag">OpenCV</span>
+                        <span class="stack-tag">PyTorch</span>
+                        <span class="stack-tag">YOLO (собственная модель)</span>
+                        <span class="stack-tag">EasyOCR</span>
+                        <span class="stack-tag">Одноплатные компьютеры</span>
+                    </div>
+                    <p class="project-description"><strong>Система контроля доступа</strong>, автоматически распознающая гос. номера и открывающая шлагбаум для автомобилей из белого списка.</p>
+                    <ul class="project-details">
+                        <li>Обучил и внедрил кастомную модель компьютерного зрения для детекции номерных знаков.</li>
+                        <li>Реализовал полный пайплайн обработки: детекция → обработка изображения → распознавание текста → верификация.</li>
+                    </ul>
+                    <div class="project-result">
+                        <strong>Результат:</strong> Система успешно заменила ручной контроль, обеспечив бесперебойный и безопасный проезд для авторизованного транспорта.
+                    </div>
+                </div>
+                
+                <div class="project-item">
+                    <div class="project-header">
+                        <div class="project-title">Портал для гостиничного комплекса с дельфинарием</div>
+                    </div>
+                    <div class="project-stack">
+                        <span class="stack-tag">Django (DRF API)</span>
+                        <span class="stack-tag">Vue.js</span>
+                        <span class="stack-tag">PostgreSQL</span>
+                    </div>
+                    <p class="project-description"><strong>Комплексный портал</strong> с онлайн-бронированием мест в зале (схема рассадки как в кинотеатре), системой внутреннего учета заказов, оплат и управления услугами.</p>
+                    <div class="project-result">
+                        <strong>Результат:</strong> Разработал full-stack решение, автоматизировавшее ключевые бизнес-процессы заказчика. Через портал обработано <strong>20 000+ заказов</strong>, что улучшило клиентский опыт и сократило нагрузку на административный персонал.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- EDUCATION & ADDITIONAL -->
+            <div class="card">
+                <h2><i class="fas fa-graduation-cap"></i> Образование</h2>
+                <div class="project-item">
+                    <div class="project-header">
+                        <div class="project-title">Томский государственный университет (ТГУ)</div>
+                    </div>
+                    <p class="project-description"><strong>Экономический факультет</strong>, специальность «Экономическая теория»<br>2003 — 2008</p>
+                </div>
+                <div class="project-item">
+                    <div class="project-header">
+                        <div class="project-title">Томский государственный университет систем управления и радиоэлектроники (ТУСУР)</div>
+                    </div>
+                    <p class="project-description"><strong>Профессиональная переподготовка</strong> по специальности «Web-специалист, разработка ПО»<br>2012 — 2014 (окончание 30.01.2014)</p>
+                </div>
+                
+                <h2 class="mt-20"><i class="fas fa-info-circle"></i> Дополнительно</h2>
+                <div class="project-item">
+                    <div class="skill-tags mb-15" style="margin-bottom: 15px;">
+                        <span class="tag">Архитектура на основе API</span>
+                        <span class="tag">REST API</span>
+                        <span class="tag">Самостоятельный деплой</span>
+                        <span class="tag">Полный цикл разработки</span>
+                    </div>
+                    <p style="margin-top: 15px;"><strong>Языки:</strong> Русский (родной), Английский (читаю техническую документацию)</p>
+                    <p><strong>Интересы:</strong> IoT-проекты, автоматизация умного дома (Home Assistant, HomeKit), embedded-разработка</p>
+                    <p><strong>Подход:</strong> Архитектура на основе API, самостоятельное развертывание и администрирование Linux-серверов, страсть к сложным и разноплановым задачам (от backend и CV до embedded).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Добавляем интерактивность тегам
+        document.addEventListener('DOMContentLoaded', function() {
+            const tags = document.querySelectorAll('.tag, .stack-tag');
+            
+            tags.forEach(tag => {
+                tag.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.05)';
+                    this.style.transition = 'transform 0.2s ease';
+                });
+                
+                tag.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
