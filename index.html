@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Резюме - Королёв Павел Олегович</title>
+    <title>Королёв Павел Олегович — Full stack / IoT / AI-агент разработчик</title>
+    <meta name="description" content="Full stack / IoT / AI-агент разработчик: Python, Django, FastAPI, Vue 3, Embedded, Computer Vision, LLM-агенты.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -18,31 +19,164 @@
             --bg-card: #1e1e1e;
             --border-color: #2d4a3a;
             --shadow: 0 4px 12px rgba(0, 20, 10, 0.3);
+
+            --bg: #0a0f14;
+            --bg-2: #101823;
+            --surface: rgba(255, 255, 255, 0.045);
+            --surface-2: rgba(255, 255, 255, 0.075);
+            --stroke: rgba(255, 255, 255, 0.10);
+            --text: #e9f1ee;
+            --muted: #9fb3ad;
+            --c1: #34d399;
+            --c2: #38bdf8;
+            --c3: #f472b6;
+            --c4: #fbbf24;
+            --glow: 0 0 0 1px rgba(52, 211, 153, .28), 0 18px 50px -18px rgba(52, 211, 153, .45);
         }
-        
+
+        [data-theme="light"] {
+            --bg: #f4f7f6;
+            --bg-2: #ffffff;
+            --surface: rgba(255, 255, 255, 0.75);
+            --surface-2: rgba(15, 40, 33, 0.04);
+            --stroke: rgba(15, 40, 33, 0.12);
+            --text: #10231d;
+            --muted: #4c635b;
+            --c1: #059669;
+            --c2: #0284c7;
+            --c3: #db2777;
+            --c4: #d97706;
+            --glow: 0 0 0 1px rgba(5, 150, 105, .25), 0 18px 45px -20px rgba(5, 150, 105, .45);
+
+            /* наследуемые переменные из тёмной темы — иначе карточки останутся тёмными */
+            --bg-dark: #f4f7f6;
+            --bg-card: #ffffff;
+            --border-color: rgba(15, 40, 33, 0.12);
+            --text-light: #10231d;
+            --text-muted: #4c635b;
+            --primary: #059669;
+            --primary-light: #047857;
+            --accent: #059669;
+            --accent-light: #047857;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg);
+            transition: background-color .5s ease;
+        }
+
         body {
             font-family: 'Segoe UI', 'Roboto', sans-serif;
             line-height: 1.7;
-            color: var(--text-light);
-            background-color: var(--bg-dark);
+            color: var(--text);
+            background-color: var(--bg);
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+            transition: background-color .5s ease, color .5s ease;
+            min-height: 100vh;
         }
-        
+
+        /* ---------- AURORA BACKGROUND ---------- */
+        .aurora {
+            position: fixed;
+            inset: -20vh -20vw;
+            z-index: -2;
+            pointer-events: none;
+            filter: blur(70px);
+            opacity: .55;
+        }
+        .aurora span {
+            position: absolute;
+            display: block;
+            border-radius: 50%;
+            mix-blend-mode: screen;
+            animation: drift 26s ease-in-out infinite alternate;
+        }
+        /* в светлой теме пятна мягкие и без blend — multiply давал грязно-бежевые пятна */
+        [data-theme="light"] .aurora { opacity: .22; mix-blend-mode: normal; }
+        [data-theme="light"] .aurora span:nth-child(1) { background: radial-gradient(circle, #a7f3d0, transparent 68%); }
+        [data-theme="light"] .aurora span:nth-child(2) { background: radial-gradient(circle, #bae6fd, transparent 68%); }
+        [data-theme="light"] .aurora span:nth-child(3) { background: radial-gradient(circle, #fbcfe8, transparent 68%); }
+        [data-theme="light"] .aurora span:nth-child(4) { background: radial-gradient(circle, #fde68a, transparent 70%); }
+        .aurora span:nth-child(1) {
+            width: 46vw; height: 46vw; left: -6vw; top: 4vh;
+            background: radial-gradient(circle, var(--c1), transparent 68%);
+        }
+        .aurora span:nth-child(2) {
+            width: 40vw; height: 40vw; right: -8vw; top: 18vh;
+            background: radial-gradient(circle, var(--c2), transparent 68%);
+            animation-duration: 32s; animation-delay: -6s;
+        }
+        .aurora span:nth-child(3) {
+            width: 38vw; height: 38vw; left: 22vw; bottom: -12vh;
+            background: radial-gradient(circle, var(--c3), transparent 68%);
+            animation-duration: 38s; animation-delay: -14s;
+        }
+        .aurora span:nth-child(4) {
+            width: 26vw; height: 26vw; right: 14vw; bottom: 8vh;
+            background: radial-gradient(circle, var(--c4), transparent 70%);
+            animation-duration: 30s; animation-delay: -20s;
+        }
+        @keyframes drift {
+            0%   { transform: translate3d(0, 0, 0) scale(1); }
+            50%  { transform: translate3d(4vw, -6vh, 0) scale(1.15); }
+            100% { transform: translate3d(-5vw, 5vh, 0) scale(.92); }
+        }
+
+        /* ---------- GRID BACKDROP ---------- */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background-image:
+                linear-gradient(to right, var(--stroke) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--stroke) 1px, transparent 1px);
+            background-size: 56px 56px;
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+            opacity: .5;
+        }
+
         .resume-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-gap: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
         }
-        
-        /* HEADER STYLES */
+        .card.full { grid-column: 1 / -1; }
+        .cols {
+            display: grid;
+            gap: 26px 30px;
+            align-items: start;
+        }
+        .cols-2 { grid-template-columns: 1fr 1fr; }
+        .cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+        /* плотная укладка колонками — без пустот от выравнивания по строкам */
+        .cols-flow {
+            display: block;
+            column-count: 2;
+            column-gap: 30px;
+        }
+        .cols-flow > * {
+            break-inside: avoid;
+            -webkit-column-break-inside: avoid;
+            page-break-inside: avoid;
+        }
+        .cols-flow > * + * { margin-top: 22px; }
+
+        /* ---------- HEADER ---------- */
         .header {
             grid-column: 1 / -1;
             background: linear-gradient(135deg, var(--primary-dark), var(--primary));
@@ -52,8 +186,9 @@
             margin-bottom: 20px;
             position: relative;
             overflow: hidden;
+            animation: rise .7s cubic-bezier(.2,.7,.3,1) both;
         }
-        
+
         .header::before {
             content: "";
             position: absolute;
@@ -63,35 +198,125 @@
             height: 200%;
             background: radial-gradient(circle, rgba(76, 175, 80, 0.1) 0%, transparent 70%);
             z-index: 0;
+            animation: spin 26s linear infinite;
         }
-        
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* живая градиентная рамка */
+        .header::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 1px;
+            background: linear-gradient(120deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c1));
+            background-size: 300% 300%;
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: hue 9s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes hue { to { background-position: 300% 50%; } }
+
         .header-content {
             position: relative;
             z-index: 1;
         }
-        
+
         h1 {
             font-size: 2.8rem;
             margin-bottom: 10px;
             color: white;
             font-weight: 700;
+            background: linear-gradient(100deg, #ffffff, #d7ffe9 45%, #a8e6ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        
+
         .title {
             font-size: 1.5rem;
             color: var(--accent-light);
             margin-bottom: 20px;
             font-weight: 300;
         }
-        
+
         .subtitle {
             font-size: 1.1rem;
             color: var(--text-muted);
             max-width: 800px;
             line-height: 1.6;
         }
-        
-        /* CONTACTS CARD */
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+        /* h4 задаёт цвет, а у ссылок color:inherit — inline перебивает внешний CSS */
+        .header h4 { color: #d7ffe9; margin-bottom: 4px; }
+        .header h4 a { color: inherit; }
+        [data-theme="light"] .header {
+            background: linear-gradient(135deg, #0f3d2a, #136b48);
+        }
+        [data-theme="light"] .header h1 {
+            background: linear-gradient(100deg, #ffffff, #eafff5 45%, #bdf1ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        [data-theme="light"] .header .title { color: #a7f3d0; }
+        [data-theme="light"] .header .subtitle { color: #cfe9df; }
+        [data-theme="light"] .badge {
+            background: rgba(255,255,255,.12);
+            border-color: rgba(255,255,255,.25);
+            color: #f0fdf9;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: .82rem;
+            padding: 6px 13px;
+            border-radius: 999px;
+            background: rgba(255,255,255,.08);
+            border: 1px solid rgba(255,255,255,.16);
+            color: #dcfce7;
+            backdrop-filter: blur(6px);
+            transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+        }
+        .badge:hover {
+            transform: translateY(-3px) scale(1.03);
+            background: rgba(255,255,255,.14);
+            box-shadow: 0 8px 22px -10px rgba(52, 211, 153, .9);
+        }
+        .badge i { color: var(--accent-light); }
+
+        /* ---------- THEME TOGGLE ---------- */
+        .theme-toggle {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 50;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: 1px solid var(--stroke);
+            background: var(--surface);
+            backdrop-filter: blur(12px);
+            color: var(--text);
+            font-size: 1.05rem;
+            cursor: pointer;
+            box-shadow: var(--glow);
+            transition: transform .3s cubic-bezier(.2,.8,.3,1.4), background .3s ease;
+        }
+        .theme-toggle:hover { transform: rotate(25deg) scale(1.08); }
+        .theme-toggle:active { transform: scale(.92); }
+
+        /* ---------- CONTACTS ---------- */
         .contacts-card {
             background-color: var(--bg-card);
             border-radius: 12px;
@@ -100,20 +325,26 @@
             border: 1px solid var(--border-color);
             grid-column: 1 / -1;
             margin-bottom: 20px;
+            animation: rise .7s cubic-bezier(.2,.7,.3,1) .08s both;
         }
-        
+        [data-theme="dark"] .contacts-card {
+            background-color: rgba(255,255,255,.04);
+            border-color: var(--stroke);
+            box-shadow: none;
+        }
+
         .contacts-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
         }
-        
+
         .contact-item {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-        
+
         .contact-icon {
             background-color: rgba(76, 175, 80, 0.2);
             color: var(--accent);
@@ -124,13 +355,17 @@
             align-items: center;
             justify-content: center;
             font-size: 1rem;
+            flex: 0 0 auto;
+            transition: transform .35s cubic-bezier(.2,.8,.3,1.5), background .3s ease;
         }
-        
-        .contact-text {
-            font-size: 0.95rem;
+        .contact-item:hover .contact-icon {
+            transform: rotate(-12deg) scale(1.12);
+            background: rgba(76, 175, 80, 0.38);
         }
-        
-        /* CARD STYLES */
+
+        .contact-text { font-size: 0.95rem; }
+
+        /* ---------- CARDS ---------- */
         .card {
             background-color: var(--bg-card);
             border-radius: 12px;
@@ -138,13 +373,48 @@
             box-shadow: var(--shadow);
             border: 1px solid var(--border-color);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: rise .7s cubic-bezier(.2,.7,.3,1) both;
+            position: relative;
+            overflow: hidden;
         }
-        
+        [data-theme="dark"] .card {
+            background-color: var(--surface);
+            border-color: var(--stroke);
+            box-shadow: none;
+            backdrop-filter: blur(10px);
+        }
+
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 20, 10, 0.4);
+            box-shadow: var(--glow);
         }
-        
+        .card::before {
+            content: "";
+            position: absolute;
+            left: 0; top: 0;
+            height: 100%;
+            width: 3px;
+            background: linear-gradient(180deg, var(--c1), var(--c2), var(--c3));
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform .45s cubic-bezier(.2,.8,.3,1);
+        }
+        .card:hover::before { transform: scaleY(1); }
+
+        .left-column .card:nth-of-type(1) { animation-delay: .12s; }
+        .right-column .card:nth-of-type(1) { animation-delay: .18s; }
+        .right-column .card:nth-of-type(2) { animation-delay: .24s; }
+
+        /* без opacity: если анимация не проигралась (throttling/печать), текст останется видимым */
+        @keyframes rise {
+            from { transform: translateY(22px); }
+            to   { transform: translateY(0); }
+        }
+        @keyframes riseFade {
+            from { opacity: 0; transform: translateY(22px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
         h2 {
             color: var(--accent-light);
             font-size: 1.5rem;
@@ -155,22 +425,25 @@
             align-items: center;
             gap: 10px;
         }
-        
+        [data-theme="dark"] h2 { color: #d7ffe9; border-bottom-color: var(--stroke); }
+        [data-theme="light"] h2 { color: #047857; border-bottom-color: rgba(5,150,105,.25); }
+
         h2 i {
             color: var(--accent);
+            display: inline-block;
+            transition: transform .4s cubic-bezier(.2,.8,.3,1.5);
         }
-        
-        /* SKILLS GRID */
+        .card:hover h2 i { transform: scale(1.2) rotate(-8deg); }
+
+        /* ---------- SKILLS ---------- */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 15px;
         }
-        
-        .skill-category {
-            margin-bottom: 20px;
-        }
-        
+
+        .skill-category { margin-bottom: 20px; }
+
         .skill-category h3 {
             color: var(--primary-light);
             font-size: 1.1rem;
@@ -179,13 +452,14 @@
             align-items: center;
             gap: 8px;
         }
-        
+        [data-theme="dark"] .skill-category h3 { color: var(--c1); }
+
         .skill-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
         }
-        
+
         .tag {
             background-color: rgba(46, 139, 87, 0.2);
             color: var(--text-light);
@@ -193,55 +467,81 @@
             border-radius: 20px;
             font-size: 0.85rem;
             border: 1px solid rgba(46, 139, 87, 0.3);
+            cursor: default;
+            transition: transform .22s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease;
         }
-        
+        [data-theme="dark"] .tag {
+            background: var(--surface-2);
+            color: var(--text);
+            border-color: var(--stroke);
+        }
+
+        .tag:hover {
+            transform: translateY(-4px) scale(1.06);
+            border-color: var(--c1);
+            box-shadow: 0 10px 24px -12px var(--c1);
+        }
+
         .tag.highlight {
             background-color: rgba(76, 175, 80, 0.3);
             border-color: var(--accent);
             font-weight: 500;
         }
-        
-        /* PROJECTS */
-        .project-item {
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
+        [data-theme="dark"] .tag.highlight {
+            background: linear-gradient(135deg, rgba(52,211,153,.22), rgba(56,189,248,.18));
+            border-color: rgba(52,211,153,.55);
         }
-        
+
+        /* ---------- PROJECTS ---------- */
+        .project-item {
+            margin-bottom: 22px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--border-color);
+            transition: border-color .3s ease;
+        }
+        .cols .project-item:last-child { border-bottom: none; }
+        .cols .timeline-item:last-child { margin-bottom: 0; }
+        .cols .skill-category { margin-bottom: 0; }
+        [data-theme="dark"] .project-item { border-bottom-color: var(--stroke); }
+
         .project-item:last-child {
             border-bottom: none;
             margin-bottom: 0;
             padding-bottom: 0;
         }
-        
+
         .project-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 10px;
+            gap: 10px;
+            flex-wrap: wrap;
         }
-        
+
         .project-title {
             font-size: 1.2rem;
             color: var(--text-light);
             font-weight: 600;
         }
-        
+        [data-theme="dark"] .project-title { color: var(--text); }
+
         .project-date {
             color: var(--text-muted);
             font-size: 0.9rem;
             background-color: rgba(27, 94, 62, 0.3);
             padding: 4px 10px;
             border-radius: 12px;
+            white-space: nowrap;
         }
-        
+
         .project-stack {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
             margin: 12px 0;
         }
-        
+
         .stack-tag {
             background-color: rgba(128, 226, 126, 0.1);
             color: var(--accent-light);
@@ -249,25 +549,32 @@
             border-radius: 12px;
             font-size: 0.8rem;
             font-family: 'Courier New', monospace;
+            transition: transform .22s ease, box-shadow .22s ease;
         }
-        
+        [data-theme="dark"] .stack-tag {
+            background: rgba(56,189,248,.12);
+            color: #7dd3fc;
+        }
+        .stack-tag:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px -12px var(--c2);
+        }
+
         .project-description {
             color: var(--text-muted);
             margin-bottom: 10px;
             line-height: 1.6;
         }
-        
+
         .project-details {
             color: var(--text-muted);
             margin-bottom: 10px;
             line-height: 1.6;
             padding-left: 15px;
         }
-        
-        .project-details li {
-            margin-bottom: 5px;
-        }
-        
+
+        .project-details li { margin-bottom: 5px; }
+
         .project-result {
             color: var(--text-light);
             background-color: rgba(10, 47, 29, 0.5);
@@ -277,15 +584,35 @@
             line-height: 1.6;
             margin-top: 10px;
         }
-        
-        /* TIMELINE */
+        [data-theme="dark"] .project-result {
+            background: linear-gradient(90deg, rgba(52,211,153,.12), transparent 80%);
+            border-left-color: var(--c1);
+            color: var(--text);
+        }
+        [data-theme="light"] .project-result {
+            background: linear-gradient(90deg, rgba(5, 150, 105, .12), rgba(5, 150, 105, .04));
+            border-left-color: var(--c1);
+            color: #16302a;
+        }
+
+        /* ---------- TIMELINE ---------- */
         .timeline-item {
             margin-bottom: 25px;
             padding-left: 20px;
             border-left: 3px solid var(--primary);
             position: relative;
         }
-        
+        .cols .timeline-item {
+            padding: 14px 16px 14px 20px;
+            border-left: 3px solid var(--c1);
+            border-radius: 10px;
+            background: var(--surface-2);
+        }
+        [data-theme="dark"] .cols .timeline-item {
+            background: rgba(255,255,255,.035);
+        }
+        [data-theme="dark"] .timeline-item { border-left-color: var(--stroke); }
+
         .timeline-item:before {
             content: "";
             position: absolute;
@@ -295,127 +622,135 @@
             height: 14px;
             border-radius: 50%;
             background-color: var(--accent);
+            box-shadow: 0 0 0 0 rgba(76, 175, 80, .6);
+            animation: pulse 2.6s ease-out infinite;
         }
-        
+        @keyframes pulse {
+            0%   { box-shadow: 0 0 0 0 rgba(52, 211, 153, .55); }
+            70%  { box-shadow: 0 0 0 14px rgba(52, 211, 153, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+        }
+
         .timeline-header {
             display: flex;
             justify-content: space-between;
             margin-bottom: 8px;
+            gap: 10px;
         }
-        
+
         .timeline-title {
             font-weight: 600;
             color: var(--text-light);
         }
-        
+        [data-theme="dark"] .timeline-title { color: var(--text); }
+
         .timeline-date {
             color: var(--text-muted);
             font-size: 0.9rem;
         }
-        
+
         .timeline-subtitle {
             color: var(--primary-light);
             font-size: 0.95rem;
             margin-bottom: 10px;
         }
-        
+        [data-theme="dark"] .timeline-subtitle { color: var(--c2); }
+
         .timeline-description {
             color: var(--text-muted);
             line-height: 1.6;
         }
-        
-        /* UTILITIES */
-        .grid-span-2 {
-            grid-column: 1 / -1;
+
+        /* ---------- UTILITIES ---------- */
+        .grid-span-2 { grid-column: 1 / -1; }
+        .mb-20 { margin-bottom: 20px; }
+        .mt-20 { margin-top: 20px; }
+        .text-center { text-align: center; }
+
+        .note {
+            font-size: .85rem;
+            color: var(--muted);
+            margin-top: 8px;
+            font-style: italic;
         }
-        
-        .mb-20 {
-            margin-bottom: 20px;
+
+        /* ---------- REVEAL: контент виден ВСЕГДА, анимация — только бонус ---------- */
+        .reveal { opacity: 1; transform: none; }
+        .reveal.in { animation: rise .7s cubic-bezier(.2,.7,.3,1) both; }
+        .timeline-item:nth-child(2).in { animation-delay: .06s; }
+        .timeline-item:nth-child(3).in { animation-delay: .12s; }
+        .timeline-item:nth-child(4).in { animation-delay: .18s; }
+        .timeline-item:nth-child(5).in { animation-delay: .24s; }
+        .project-item:nth-child(1).in { animation-delay: .06s; }
+        .project-item:nth-child(2).in { animation-delay: .12s; }
+        .project-item:nth-child(3).in { animation-delay: .18s; }
+        .project-item:nth-child(4).in { animation-delay: .24s; }
+        .project-item:nth-child(5).in { animation-delay: .30s; }
+        .project-item:nth-child(6).in { animation-delay: .36s; }
+        .project-item:nth-child(7).in { animation-delay: .42s; }
+        .project-item:nth-child(8).in { animation-delay: .48s; }
+        .project-item:nth-child(9).in { animation-delay: .54s; }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
         }
-        
-        .mt-20 {
-            margin-top: 20px;
-        }
-        
-        .text-center {
-            text-align: center;
-        }
-        
-        /* RESPONSIVE */
+
+        /* ---------- RESPONSIVE ---------- */
         @media (max-width: 900px) {
-            .resume-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .header {
-                padding: 30px 20px;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .title {
-                font-size: 1.3rem;
-            }
-            
-            .contacts-grid {
-                grid-template-columns: 1fr;
-            }
+            .cols-2, .cols-3 { grid-template-columns: 1fr; }
+            .cols-flow { column-count: 1; }
+            .header { padding: 30px 20px; }
+            h1 { font-size: 2.2rem; }
+            .title { font-size: 1.3rem; }
+            .contacts-grid { grid-template-columns: 1fr; }
+            .theme-toggle { top: 10px; right: 10px; }
         }
-        
+
         @media print {
-            body {
-                background-color: white;
-                color: #333;
-            }
-            
-            .card {
-                box-shadow: none;
-                border: 1px solid #ddd;
-            }
-            
-            .header {
-                background: #1b5e3e;
-                color: white;
-            }
+            body { background-color: white; color: #333; }
+            .aurora, .theme-toggle { display: none; }
+            .card { box-shadow: none; border: 1px solid #ddd; }
+            .header { background: #1b5e3e; color: white; }
+            .reveal { opacity: 1 !important; transform: none !important; }
         }
     </style>
 </head>
 <body>
-    <div class="resume-container">
-        <!-- HEADER -->
-        <header class="header">
+    <div class="aurora" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <button class="theme-toggle" id="themeToggle" title="Сменить тему" aria-label="Сменить тему"><i class="fas fa-moon"></i></button>
+
+    
+<div class="resume-container">
+    <header class="header">
             <div class="header-content">
                 <h1>Королёв Павел Олегович</h1>
-                <h4><a href="tel:+79138581717" style="color:inherit;text-decoration:none;">+7 (913) 858 17-17</a></h4>
+                <h4><a href="tel:+791****1717" style="color:inherit;text-decoration:none;">+7 (913) 858 17-17</a></h4>
                 <h4><a href="mailto:defdis@gmail.com" style="color:inherit;text-decoration:none;">defdis@gmail.com</a></h4>
-                <div class="title">Full stack / IoT разработчик (Python, Django, FastAPI, Vue.js/Nuxt, Embedded)</div>
-                <p class="subtitle">Разработчик полного цикла: от backend-API и frontend до embedded-систем и компьютерного зрения. Создаю сложные решения под ключ — от идеи до работающего продукта.</p>
+                <div class="title">Full stack / IoT / AI-агент разработчик (Python, Django, FastAPI, Vue.js/Nuxt, Embedded)</div>
+                <p class="subtitle">Разработчик полного цикла: от backend-API и frontend до embedded-систем, компьютерного зрения и агентных LLM-систем. Создаю сложные решения под ключ — от идеи до работающего продукта.</p>
+                <div class="badges">
+                    <span class="badge"><i class="fas fa-satellite-dish"></i> Удалённо, Томск</span>
+                    <span class="badge"><i class="fas fa-robot"></i> AI-агенты и LLM</span>
+                    <span class="badge"><i class="fas fa-code-branch"></i> Архитектура и приёмка</span>
+                    <span class="badge"><i class="fas fa-server"></i> Linux / Docker / CI</span>
+                </div>
             </div>
         </header>
-        
-        <!-- CONTACTS -->
-        <div class="contacts-card">
+
+    <div class="contacts-card">
             <div class="contacts-grid">
                 <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div class="contact-text">
-                        <strong>Локация:</strong> Томск (Готов к удаленной работе)
-                    </div>
+                    <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="contact-text"><strong>Локация:</strong> Томск (Готов к удаленной работе)</div>
                 </div>
             </div>
         </div>
-        
-        <!-- LEFT COLUMN -->
-        <div class="left-column">
-            <!-- SKILLS -->
-            <div class="card mb-20">
-                <h2><i class="fas fa-code"></i> Ключевые технологии</h2>
-                <div class="skills-grid">
-                    <div class="skill-category">
+
+    <!-- ТЕХНОЛОГИИ -->
+    <section class="card full">
+        <h2><i class="fas fa-code"></i> Ключевые технологии</h2>
+        <div class="cols cols-3">
+            <div class="skill-category">
                         <h3><i class="fas fa-server"></i> Backend & API</h3>
                         <div class="skill-tags">
                             <span class="tag highlight">Python</span>
@@ -429,8 +764,7 @@
                             <span class="tag">Telegram Bot API</span>
                         </div>
                     </div>
-                    
-                    <div class="skill-category">
+<div class="skill-category">
                         <h3><i class="fas fa-desktop"></i> Frontend</h3>
                         <div class="skill-tags">
                             <span class="tag highlight">JavaScript (ES6+)</span>
@@ -443,8 +777,21 @@
                             <span class="tag">Vite</span>
                         </div>
                     </div>
-                    
-                    <div class="skill-category">
+<div class="skill-category">
+                        <h3><i class="fas fa-robot"></i> AI-агенты и LLM</h3>
+                        <div class="skill-tags">
+                            <span class="tag highlight">Hermes Agent (форк)</span>
+                            <span class="tag">Claude Code / Cursor</span>
+                            <span class="tag">MCP (серверы и клиенты)</span>
+                            <span class="tag">Multi-agent delegation</span>
+                            <span class="tag">RAG / RLM</span>
+                            <span class="tag">Prompt engineering</span>
+                            <span class="tag">Векторные БД</span>
+                            <span class="tag">Оркестрация задач</span>
+                        </div>
+                        <p class="note">Агентная платформа: планирование, делегирование, проверка результата, MCP-интеграции, реестр скиллов.</p>
+                    </div>
+<div class="skill-category">
                         <h3><i class="fas fa-brain"></i> Data Science / CV</h3>
                         <div class="skill-tags">
                             <span class="tag highlight">OpenCV</span>
@@ -455,8 +802,7 @@
                             <span class="tag">Обучение моделей</span>
                         </div>
                     </div>
-                    
-                    <div class="skill-category">
+<div class="skill-category">
                         <h3><i class="fas fa-microchip"></i> Embedded & IoT</h3>
                         <div class="skill-tags">
                             <span class="tag highlight">Raspberry Pi</span>
@@ -470,8 +816,7 @@
                             <span class="tag">Пайка / сборка</span>
                         </div>
                     </div>
-                    
-                    <div class="skill-category">
+<div class="skill-category">
                         <h3><i class="fas fa-cloud"></i> DevOps & Инфраструктура</h3>
                         <div class="skill-tags">
                             <span class="tag">Linux (администрирование)</span>
@@ -480,17 +825,33 @@
                             <span class="tag">Git</span>
                             <span class="tag">Gunicorn / uWSGI</span>
                             <span class="tag">Развертывание VPS/VDS</span>
+                            <span class="tag">CI/CD</span>
                             <span class="tag">Безопасность</span>
                         </div>
                     </div>
+        </div>
+    </section>
+
+    <!-- ОПЫТ -->
+    <section class="card full">
+        <h2><i class="fas fa-briefcase"></i> Опыт работы</h2>
+        <div class="cols cols-2 cols-flow">
+            <div class="timeline-item reveal">
+                    <div class="timeline-header">
+                        <div class="timeline-title">Ведущий AI-инженер / владелец агентной платформы</div>
+                        <div class="timeline-date">2026 — настоящее время</div>
+                    </div>
+                    <div class="timeline-subtitle">Самостоятельные проекты / Фриланс</div>
+                    <p class="timeline-description">
+                        Построил и сопровождаю SaaS-платформу персональных AI-агентов: изолированные инстансы по пользователям,
+                        автоприёмка заявок, биллинг с автопродлением, бэкапы в объектное хранилище, мониторинг ресурсов и алерты.
+                        Агентная платформа — форк Hermes Agent с собственными плагинами, единым реестром скиллов, MCP-интеграциями
+                        и RAG/RLM-пайплайном; задачи планируются, делегируются и проверяются автотестами.
+                        Развёртывание — Docker и systemd, оркестрация через cron и юниты, каналы связи Telegram и Matrix,
+                        интеграции с внешними API (поиск, генерация изображений, STT/TTS).
+                    </p>
                 </div>
-            </div>
-            
-            <!-- EXPERIENCE -->
-            <div class="card">
-                <h2><i class="fas fa-briefcase"></i> Опыт работы</h2>
-                
-                <div class="timeline-item">
+<div class="timeline-item reveal">
                     <div class="timeline-header">
                         <div class="timeline-title">Full stack разработчик</div>
                         <div class="timeline-date">2018 — настоящее время</div>
@@ -498,8 +859,7 @@
                     <div class="timeline-subtitle">Самостоятельные проекты / Фриланс</div>
                     <p class="timeline-description">Разработка и реализация коммерческих проектов под заказ (см. ниже).</p>
                 </div>
-                
-                <div class="timeline-item">
+<div class="timeline-item reveal">
                     <div class="timeline-header">
                         <div class="timeline-title">Технический руководитель / Архитектор</div>
                         <div class="timeline-date">2018 — 2022</div>
@@ -507,8 +867,7 @@
                     <div class="timeline-subtitle">Инфраструктурный проект (высоконагруженный вычислительный кластер)</div>
                     <p class="timeline-description">Полный цикл создания high-tech вычислительной инфраструктуры: привлечение инвестиций, проектирование, закупка оборудования, управление подрядчиками, эксплуатация и техническое обслуживание (1956 GPU). Разработка с нуля системы мониторинга всего оборудования в реальном времени.</p>
                 </div>
-                
-                <div class="timeline-item">
+<div class="timeline-item reveal">
                     <div class="timeline-header">
                         <div class="timeline-title">Full stack разработчик</div>
                         <div class="timeline-date">2015 — 2017</div>
@@ -516,8 +875,7 @@
                     <div class="timeline-subtitle">Образовательная платформа «Questinar»</div>
                     <p class="timeline-description">Разработчик в команде из 2х человек. Создание с нуля образовательной платформы (аналог современных образовательных платформ) на Django.</p>
                 </div>
-                
-                <div class="timeline-item">
+<div class="timeline-item reveal">
                     <div class="timeline-header">
                         <div class="timeline-title">Менеджер проекта / Технический координатор</div>
                         <div class="timeline-date">2013 — 2015</div>
@@ -525,16 +883,67 @@
                     <div class="timeline-subtitle">ООО «Картаинфо»</div>
                     <p class="timeline-description">Управление разработкой геосервиса через внешнюю команду: постановка задач, приемка, коммуникация.</p>
                 </div>
-            </div>
         </div>
-        
-        <!-- RIGHT COLUMN -->
-        <div class="right-column">
-            <!-- PROJECTS -->
-            <div class="card mb-20">
-                <h2><i class="fas fa-project-diagram"></i> Ключевые проекты</h2>
-                
-                <div class="project-item">
+    </section>
+
+    <!-- ПРОЕКТЫ -->
+    <section class="card full">
+        <h2><i class="fas fa-project-diagram"></i> Ключевые проекты</h2>
+        <div class="cols cols-2 cols-flow">
+            <div class="project-item reveal">
+                    <div class="project-header">
+                        <div class="project-title">SaaS-платформа AI-агентов (Hermes Instance Manager)</div>
+                        <div class="project-date">2026 — н.в.</div>
+                    </div>
+                    <div class="project-stack">
+                        <span class="stack-tag">FastAPI</span>
+                        <span class="stack-tag">Vue 3 + Vite</span>
+                        <span class="stack-tag">Docker / systemd</span>
+                        <span class="stack-tag">Nginx</span>
+                        <span class="stack-tag">ЮKassa</span>
+                        <span class="stack-tag">S3</span>
+                    </div>
+                    <p class="project-description"><strong>Панель управления персональными AI-агентами:</strong> авторизация, жизненный цикл инстансов, конфигурация, реестр скиллов, биллинг с автопродлением подписки, автоматические бэкапы в объектное хранилище, мониторинг диска и подписок, алерты в Telegram.</p>
+                    <ul class="project-details">
+                        <li>Инстансы изолированы по пользователям: свои каталоги, переменные окружения, доступ по ролям.</li>
+                        <li>Секреты и токены вынесены в окружение, ключи подписи — вне репозитория, ротация по регламенту.</li>
+                        <li>Агенты работают в Telegram и Matrix, умеют звать внешние API через MCP.</li>
+                    </ul>
+                    <div class="project-result">
+                        <strong>Результат:</strong> Работающая продуктовая платформа: агент поднимается автоматически после оплаты,
+                        его можно перезапустить, снять бэкап и открыть конфиг без участия разработчика. Эксплуатация и мониторинг — на systemd и cron, без ручного вмешательства.
+                    </div>
+                </div>
+<div class="project-item reveal">
+                    <div class="project-header">
+                        <div class="project-title">RLM-плагин для Hermes Agent</div>
+                        <div class="project-date">2026</div>
+                    </div>
+                    <div class="project-stack">
+                        <span class="stack-tag">Python</span>
+                        <span class="stack-tag">MCP</span>
+                        <span class="stack-tag">OpenAI / OpenRouter / vLLM / Ollama</span>
+                    </div>
+                    <p class="project-description"><strong>Плагин глубокого рекурсивного анализа</strong> (опубликован на GitHub): модель сама выбирает, что читать из документа, вместо векторного поиска с Top-K чанков. Установка одной командой, валидация API при установке, тесты, работа с локальными и облачными провайдерами.</p>
+                    <div class="project-result">
+                        <strong>Результат:</strong> Открытый инструмент для задач, где нельзя ошибиться: сравнение документов, разбор
+                        больших спецификаций, анализ исходников — без потери контекста из-за неполной выборки.
+                    </div>
+                </div>
+<div class="project-item reveal">
+                    <div class="project-header">
+                        <div class="project-title">База знаний для агентов (RAG / LightRAG)</div>
+                        <div class="project-date">2025 — н.в.</div>
+                    </div>
+                    <div class="project-stack">
+                        <span class="stack-tag">Python</span>
+                        <span class="stack-tag">LightRAG</span>
+                        <span class="stack-tag">Neo4j</span>
+                        <span class="stack-tag">Локальные LLM</span>
+                    </div>
+                    <p class="project-description"><strong>Индексация и семантический поиск</strong> по рабочим документам с извлечением сущностей и связей, обслуживание индекса и подключение к агентам через MCP — чтобы агент опирался на факты, а не на догадки.</p>
+                </div>
+<div class="project-item reveal">
                     <div class="project-header">
                         <div class="project-title">Сайт для сети пекарен</div>
                         <div class="project-date">Июнь 2021 — н.в.</div>
@@ -550,8 +959,7 @@
                         <strong>Результат:</strong> Разработал и поддерживаю полноценную <strong>продающую и операционную платформу</strong>. Система напрямую влияет на выручку, за время работы через неё оформлено <strong>10 000+ заказов</strong>. Реализована административная панель для управления ассортиментом, ценами и контентом.
                     </div>
                 </div>
-                
-                <div class="project-item">
+<div class="project-item reveal">
                     <div class="project-header">
                         <div class="project-title">«Умный холодильник» (IoT-вендинг)</div>
                         <div class="project-date">2020 — 2023</div>
@@ -574,8 +982,7 @@
                         <strong>Результат:</strong> За год эксплуатации <strong>не зафиксировано ни одной кражи</strong>, что подтвердило надежность системы и позволило сократить операционные расходы.
                     </div>
                 </div>
-                
-                <div class="project-item">
+<div class="project-item reveal">
                     <div class="project-header">
                         <div class="project-title">Система автоматизации документооборота</div>
                         <div class="project-date">Май 2025 — н.в.</div>
@@ -590,8 +997,7 @@
                         <strong>Результат:</strong> С мая 2025 система сгенерировала <strong>более 11 500 документов</strong>, исключив ручной ввод и сократив время обработки заказов. Интеграция с 1С обеспечила актуальность данных.
                     </div>
                 </div>
-                
-                <div class="project-item">
+<div class="project-item reveal">
                     <div class="project-header">
                         <div class="project-title">«Умный шлагбаум» (Computer Vision)</div>
                     </div>
@@ -612,8 +1018,7 @@
                         <strong>Результат:</strong> Система успешно заменила ручной контроль, обеспечив бесперебойный и безопасный проезд для авторизованного транспорта.
                     </div>
                 </div>
-                
-                <div class="project-item">
+<div class="project-item reveal">
                     <div class="project-header">
                         <div class="project-title">Портал для гостиничного комплекса с дельфинарием</div>
                     </div>
@@ -624,55 +1029,74 @@
                     </div>
                     <p class="project-description"><strong>Комплексный портал</strong> с онлайн-бронированием мест в зале (схема рассадки как в кинотеатре), системой внутреннего учета заказов, оплат и управления услугами.</p>
                     <div class="project-result">
-                        <strong>Результат:</strong> Разработал full-stack решение, автоматизировавшее ключевые бизнес-процессы заказчика. Через портал обработано <strong>20 000+ заказов</strong>, что улучшило клиентский опыт и сократило нагрузку на административный персонал.
+                        <strong>Результат:</strong> Разработал full-stack решение, автоматизировавшее ключевые бизнес-процессы заказчика. Через портал обработано <strong>50 000+ заказов</strong>, что улучшило клиентский опыт и сократило нагрузку на административный персонал.
                     </div>
                 </div>
-            </div>
-            
-            <!-- EDUCATION & ADDITIONAL -->
-            <div class="card">
-                <h2><i class="fas fa-graduation-cap"></i> Образование</h2>
-                <div class="project-item">
+        </div>
+    </section>
+
+    <!-- ОБРАЗОВАНИЕ -->
+    <section class="card full">
+        <h2><i class="fas fa-graduation-cap"></i> Образование</h2>
+        <div class="cols cols-2 cols-flow">
+            <div class="project-item reveal">
                     <div class="project-header">
                         <div class="project-title">Томский государственный университет (ТГУ)</div>
                     </div>
                     <p class="project-description"><strong>Экономический факультет</strong>, специальность «Экономическая теория»<br>2003 — 2008</p>
                 </div>
-                <div class="project-item">
+<div class="project-item reveal">
                     <div class="project-header">
                         <div class="project-title">Томский государственный университет систем управления и радиоэлектроники (ТУСУР)</div>
                     </div>
                     <p class="project-description"><strong>Профессиональная переподготовка</strong> по специальности «Web-специалист, разработка ПО»<br>2012 — 2014 (окончание 30.01.2014)</p>
                 </div>
-                
-                <h2 class="mt-20"><i class="fas fa-info-circle"></i> Дополнительно</h2>
-                <div class="project-item">
-                    <div class="skill-tags mb-15" style="margin-bottom: 15px;">
-                        <span class="tag">Архитектура на основе API</span>
-                        <span class="tag">REST API</span>
-                        <span class="tag">Самостоятельный деплой</span>
-                        <span class="tag">Полный цикл разработки</span>
-                    </div>
-                    <p style="margin-top: 15px;"><strong>Языки:</strong> Русский (родной), Английский (читаю техническую документацию)</p>
-                    <p><strong>Интересы:</strong> IoT-проекты, автоматизация умного дома (Home Assistant, HomeKit), embedded-разработка</p>
-                    <p><strong>Подход:</strong> Архитектура на основе API, самостоятельное развертывание и администрирование Linux-серверов, страсть к сложным и разноплановым задачам (от backend и CV до embedded).</p>
+            <div class="project-item">
+                <h3 style="margin-top:0"><i class="fas fa-info-circle"></i> Дополнительно</h3>
+                <div class="skill-tags mb-15" style="margin-bottom:15px;">
+                    <span class="tag">Архитектура на основе API</span>
+                    <span class="tag">REST API</span>
+                    <span class="tag">Самостоятельный деплой</span>
+                    <span class="tag">Полный цикл разработки</span>
+                    <span class="tag">Работа с ИИ-ассистентами</span>
                 </div>
+                <p><strong>Языки:</strong> Русский (родной), Английский (читаю техническую документацию)</p>
+                <p><strong>Интересы:</strong> IoT-проекты, автоматизация умного дома (Home Assistant, HomeKit), embedded-разработка, агентные LLM-системы</p>
+                <p><strong>Подход:</strong> Архитектура на основе API, самостоятельное развертывание и администрирование Linux-серверов, страсть к сложным и разноплановым задачам (от backend и CV до embedded и AI-агентов).</p>
             </div>
         </div>
-    </div>
+    </section>
+</div>
 
     <script>
-        // Добавляем интерактивность тегам
-        document.addEventListener('DOMContentLoaded', function() {
+        // Тема
+        const root = document.documentElement;
+        const toggle = document.getElementById('themeToggle');
+        const icon = toggle.querySelector('i');
+        const saved = localStorage.getItem('theme');
+        if (saved) apply(saved);
+        function apply(mode) {
+            root.dataset.theme = mode;
+            icon.className = mode === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            localStorage.setItem('theme', mode);
+        }
+        toggle.addEventListener('click', () => apply(root.dataset.theme === 'dark' ? 'light' : 'dark'));
+
+        // Появление блоков: .in добавляется сразу, контент виден и без скрипта
+        (function () {
+            const els = document.querySelectorAll('.reveal');
+            els.forEach((el, i) => setTimeout(() => el.classList.add('in'), i * 60));
+        })();
+
+        // Подсветка тегов
+        document.addEventListener('DOMContentLoaded', function () {
             const tags = document.querySelectorAll('.tag, .stack-tag');
-            
             tags.forEach(tag => {
-                tag.addEventListener('mouseenter', function() {
+                tag.addEventListener('mouseenter', function () {
                     this.style.transform = 'scale(1.05)';
                     this.style.transition = 'transform 0.2s ease';
                 });
-                
-                tag.addEventListener('mouseleave', function() {
+                tag.addEventListener('mouseleave', function () {
                     this.style.transform = 'scale(1)';
                 });
             });
